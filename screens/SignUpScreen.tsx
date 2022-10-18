@@ -6,24 +6,26 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
-  Button,
-  TouchableWithoutFeedback,
 } from "react-native";
 
 import { Entypo } from "@expo/vector-icons";
 import CheckBox from "../components/CheckBox";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import RootStackParams from "../App";
-
-export type SignUpParams = {
-  SignUp: undefined;
-  Login: undefined;
-  Feed: undefined;
-};
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
+import { RootStackParams } from "../App";
 
 export interface SignUpProps {
-  navigation: NativeStackNavigationProp<SignUpParams, "SignUp">;
+  navigation: NativeStackNavigationProp<RootStackParams, "SignUp", "Login">;
 }
+
+export interface ScreenProps {
+  setPasswordVisibilty: (active: boolean) => void;
+  PasswordVisibilty: boolean;
+}
+
+export type Props = SignUpProps & ScreenProps;
 
 const Header: React.FC<SignUpProps> = ({ navigation }) => {
   return (
@@ -37,7 +39,7 @@ const Header: React.FC<SignUpProps> = ({ navigation }) => {
   );
 };
 // we have to fix the problem here but later
-const Body: React.FC<SignUpProps> = ({
+const Body: React.FC<Props> = ({
   PasswordVisibilty,
   setPasswordVisibilty,
   navigation,
@@ -122,7 +124,7 @@ const Body: React.FC<SignUpProps> = ({
   );
 };
 
-const SignUpScreen: React.FC<SignUpProps> = ({ navigation }) => {
+const SignUpScreen: React.FC<Props> = ({ navigation }) => {
   const [PasswordVisibilty, setPasswordVisibilty] = useState(true);
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>

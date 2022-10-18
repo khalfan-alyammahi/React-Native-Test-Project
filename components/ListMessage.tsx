@@ -2,7 +2,19 @@ import React from "react";
 
 import { StyleSheet, View, Text, SafeAreaView, Image } from "react-native";
 
-function ListMessage({ imageUrl, title, subtitle, time }) {
+interface ListMessageProps {
+  imageUrl: string;
+  title: string;
+  subtitle: string;
+  time: string; // for now
+}
+
+const ListMessage: React.FC<ListMessageProps> = ({
+  imageUrl,
+  title,
+  subtitle,
+  time,
+}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Image source={{ uri: imageUrl }} style={styles.image} />
@@ -18,7 +30,7 @@ function ListMessage({ imageUrl, title, subtitle, time }) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 export default ListMessage;
 

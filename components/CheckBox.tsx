@@ -5,13 +5,15 @@ import {
   StyleSheet,
   SafeAreaView,
   Text,
+  ViewStyle,
 } from "react-native";
 
 interface CheckBox {
-  isChecked: Boolean;
+  CheckText: string;
+  style: ViewStyle;
 }
 
-function CheckBox<CheckBox>({ CheckText, style }) {
+const CheckBox: React.FC<CheckBox> = ({ CheckText, style }) => {
   const [Pressed, setIsPrerssed] = useState(false);
   return (
     <SafeAreaView style={[styles.container, style]}>
@@ -29,7 +31,7 @@ function CheckBox<CheckBox>({ CheckText, style }) {
       <Text>{CheckText}</Text>
     </SafeAreaView>
   );
-}
+};
 
 export default CheckBox;
 

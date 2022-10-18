@@ -1,26 +1,31 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import SignUpScreen from "./screens/SignUpScreen";
-import CheckBox from "./components/CheckBox";
+
+import SignUpScreen, { Props, SignUpProps } from "./screens/SignUpScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
-import ListMessage from "./components/ListMessage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Content from "./screens/Content";
+import Market from "./screens/Market";
+import Congratulations from "./screens/Congratulations";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
 export type RootStackParams = {
-  SignUp: Screen;
-  Login: Screen;
-  Feed: Screen;
+  SignUp: undefined;
+  Login: undefined;
+  Feed: undefined;
+  Content: undefined;
+  Market: undefined;
+  Congratulations: undefined;
 };
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SignUp"
+      initialRouteName="Congratulations"
       screenOptions={{
         headerShown: false,
       }}
@@ -28,6 +33,9 @@ const StackNavigator = () => {
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Feed" component={FeedScreen} />
+      <Stack.Screen name="Content" component={Content} />
+      <Stack.Screen name="Market" component={Market} />
+      <Stack.Screen name="Congratulations" component={Congratulations} />
     </Stack.Navigator>
   );
 };

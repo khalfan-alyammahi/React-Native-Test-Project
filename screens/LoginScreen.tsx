@@ -12,7 +12,7 @@ import {
 
 import { Entypo } from "@expo/vector-icons";
 import CheckBox from "../components/CheckBox";
-import { SignUpParams, SignUpProps } from "./SignUpScreen";
+import { SignUpProps, Props } from "./SignUpScreen";
 
 function Header() {
   return (
@@ -23,7 +23,7 @@ function Header() {
 }
 
 // we have to fix the problem here but later
-const Body: React.FC<SignUpProps> = ({
+const Body: React.FC<Props> = ({
   PasswordVisibilty,
   setPasswordVisibilty,
   navigation,
@@ -94,7 +94,7 @@ const Body: React.FC<SignUpProps> = ({
   );
 };
 
-const LoginScreen: React.FC<SignUpProps> = ({ navigation }) => {
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [PasswordVisibilty, setPasswordVisibilty] = useState(true);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
