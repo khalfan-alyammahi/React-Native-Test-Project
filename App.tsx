@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Content from "./screens/Content";
 import Market from "./screens/Market";
 import Congratulations from "./screens/Congratulations";
+import Profile from "./screens/Profile";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -20,16 +21,18 @@ export type RootStackParams = {
   Content: undefined;
   Market: undefined;
   Congratulations: undefined;
+  Profile: undefined;
 };
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Congratulations"
+      initialRouteName="Profile"
       screenOptions={{
         headerShown: false,
       }}
     >
+      <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Feed" component={FeedScreen} />
@@ -44,7 +47,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <StackNavigator />
-      <StatusBar backgroundColor="auto" />
+      <StatusBar backgroundColor="auto" style="auto" />
     </NavigationContainer>
   );
 }
