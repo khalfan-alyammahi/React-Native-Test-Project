@@ -3,9 +3,12 @@ import { SafeAreaView, StyleSheet, View, Text, Image } from "react-native";
 
 interface Photos {
   imageUrl: string;
+  subtitle: string;
+  time: string;
+  title: string;
 }
 
-const Photos: React.FC<Photos> = ({ imageUrl }) => {
+const Photos: React.FC<Photos> = ({ imageUrl, title, subtitle, time }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -14,7 +17,11 @@ const Photos: React.FC<Photos> = ({ imageUrl }) => {
         }}
         style={styles.photo}
       />
-      <Text style={styles.header}>Header</Text>
+      <View style={{ marginLeft: 16 }}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subTitle}>{subtitle}</Text>
+        <Text style={styles.time}>{time}</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -29,10 +36,21 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 8,
     marginBottom: 5,
+    backgroundColor: "white",
   },
-  header: {
+  title: {
     fontSize: 16,
     fontWeight: "600",
-    marginLeft: 10,
+    marginBottom: 5,
+  },
+  subTitle: {
+    fontSize: 14,
+    fontWeight: "normal",
+    marginBottom: 5,
+  },
+  time: {
+    fontSize: 14,
+    fontWeight: "normal",
+    color: "#BDBDBD",
   },
 });
