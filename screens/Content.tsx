@@ -9,38 +9,8 @@ import {
   FlatList,
 } from "react-native";
 import Card from "../components/Card";
+import DummyListOne from "../DATA";
 import { SignUpProps } from "./SignUpScreen";
-
-const listing = [
-  {
-    url: "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    title: "Header",
-    subTitle:
-      "Hell want to use your yacht, and I dont want this thing smelling like fish",
-    time: "8m ago ",
-  },
-  {
-    url: "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    title: "Header",
-    subTitle:
-      "Hell want to use your yacht, and I dont want this thing smelling like fish",
-    time: "8m ago ",
-  },
-  {
-    url: "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    title: "Header",
-    subTitle:
-      "Hell want to use your yacht, and I dont want this thing smelling like fish",
-    time: "8m ago ",
-  },
-  {
-    url: "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    title: "Header",
-    subTitle:
-      "Hell want to use your yacht, and I dont want this thing smelling like fish",
-    time: "8m ago ",
-  },
-];
 
 const Header: React.FC<SignUpProps> = ({ navigation }) => {
   return (
@@ -72,7 +42,7 @@ const List = () => {
   return (
     <View style={styles.ListContainer}>
       <FlatList
-        data={listing}
+        data={DummyListOne}
         renderItem={({ item }) => (
           <Card
             ImageUrl={item.url}
