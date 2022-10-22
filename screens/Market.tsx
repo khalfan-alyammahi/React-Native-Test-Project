@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,68 +12,7 @@ import {
 import MiniCard from "../components/MiniCard";
 import { SignUpProps } from "./SignUpScreen";
 
-const listingMiniCar = [
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-  {
-    imageUrl:
-      "https://static.remove.bg/remove-bg-web/c05ac62d076574fad1fbc81404cd6083e9a4152b/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    details: "Item #1 Name Goes Here",
-    price: "$19.99",
-  },
-];
+import DummyListTwo from "../DATA2";
 
 const Header: React.FC<SignUpProps> = ({ navigation }) => {
   return (
@@ -90,13 +29,53 @@ const Header: React.FC<SignUpProps> = ({ navigation }) => {
 };
 
 const SearchBar = () => {
+  const [text, setText] = useState("");
+  const [Found, setFound] = useState(false);
   return (
     <View style={styles.SearchBarConatiner}>
       <TextInput
         placeholder="Search"
         style={styles.textInput}
         placeholderTextColor={"#BDBDBD"}
+        onChangeText={(text) => setText(text)}
       />
+      <ScrollView style={{ height: Found != false ? 300 : 0 }}>
+        <View style={{ marginTop: 20 }}>
+          {DummyListTwo.filter((val) => {
+            if (text == "") {
+              return null;
+            } else if (
+              val.details.toLowerCase().includes(text.toLocaleLowerCase())
+            ) {
+              setFound(true);
+              return val.details;
+            }
+          }).map((val) => {
+            return (
+              <View style={{ marginBottom: 5 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "normal",
+                    margin: 13,
+                    marginLeft: 20,
+                  }}
+                >
+                  {val.details}
+                </Text>
+                <View
+                  style={{
+                    height: 1,
+                    width: 353,
+                    backgroundColor: "#E5E5E5",
+                    alignSelf: "center",
+                  }}
+                />
+              </View>
+            );
+          })}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -109,7 +88,7 @@ const Body = () => {
         <Text style={styles.bodyText}>Hot Deals</Text>
         <FlatList
           horizontal
-          data={listingMiniCar}
+          data={DummyListTwo}
           renderItem={({ item }) => (
             <MiniCard
               ImageUrl={item.imageUrl}
@@ -117,12 +96,16 @@ const Body = () => {
               price={item.price}
             />
           )}
+          showsHorizontalScrollIndicator={false}
         />
-        {/*  Tending  */}
+        <View
+          style={{ height: 1, width: "100%", backgroundColor: "#E5E5E5" }}
+        ></View>
+        {/*  Trending  */}
         <Text style={styles.bodyText}>Trending</Text>
         <FlatList
           horizontal
-          data={listingMiniCar}
+          data={DummyListTwo}
           renderItem={({ item }) => (
             <MiniCard
               ImageUrl={item.imageUrl}
@@ -130,13 +113,17 @@ const Body = () => {
               price={item.price}
             />
           )}
+          showsHorizontalScrollIndicator={false}
         />
+        <View
+          style={{ height: 1, width: "100%", backgroundColor: "#E5E5E5" }}
+        ></View>
         {/* Deals - not sure how to create it because it's not shown in
       the UI design */}
         <Text style={styles.bodyText}>Deals</Text>
         <FlatList
           horizontal
-          data={listingMiniCar}
+          data={DummyListTwo}
           renderItem={({ item }) => (
             <MiniCard
               ImageUrl={item.imageUrl}
@@ -144,6 +131,7 @@ const Body = () => {
               price={item.price}
             />
           )}
+          showsHorizontalScrollIndicator={false}
         />
       </ScrollView>
     </View>

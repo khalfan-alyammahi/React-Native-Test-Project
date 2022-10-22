@@ -124,7 +124,7 @@ const Body: React.FC<Props> = ({
   );
 };
 
-const SignUpScreen: React.FC<Props> = ({ navigation }) => {
+const SignUpScreen: React.FC<SignUpProps> = ({ navigation }) => {
   const [PasswordVisibilty, setPasswordVisibilty] = useState(true);
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>

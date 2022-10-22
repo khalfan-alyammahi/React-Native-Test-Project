@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import ListMessage from "../components/ListMessage";
-import DATA from "../DATA";
+import DummyListOne from "../DATA";
 import { SignUpProps } from "./SignUpScreen";
 
 const Header: React.FC<SignUpProps> = ({ navigation }) => {
@@ -28,13 +28,55 @@ const Header: React.FC<SignUpProps> = ({ navigation }) => {
 };
 
 function SearchBar() {
+  const [text, setText] = useState("");
   return (
     <View style={styles.SearchBarConatiner}>
       <TextInput
         placeholder="Search"
         style={styles.textInput}
         placeholderTextColor={"#BDBDBD"}
+        onChangeText={(text) => setText(text)}
       />
+      <ScrollView
+        style={{
+          height: text != "" ? 300 : 0,
+        }}
+      >
+        <View style={{ marginTop: 20 }}>
+          {DummyListOne.filter((val) => {
+            if (text == "") {
+              return null;
+            } else if (
+              val.title.toLowerCase().includes(text.toLocaleLowerCase())
+            ) {
+              return val.title;
+            }
+          }).map((val) => {
+            return (
+              <View style={{ marginBottom: 5 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "normal",
+                    margin: 13,
+                    marginLeft: 20,
+                  }}
+                >
+                  {val.title}
+                </Text>
+                <View
+                  style={{
+                    height: 1,
+                    width: 353,
+                    backgroundColor: "#E5E5E5",
+                    alignSelf: "center",
+                  }}
+                />
+              </View>
+            );
+          })}
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -43,7 +85,7 @@ function List() {
   return (
     <View style={styles.ListContainer}>
       <FlatList
-        data={DATA}
+        data={DummyListOne}
         renderItem={({ item }) => (
           <ListMessage
             title={item.title}
@@ -58,6 +100,7 @@ function List() {
           margin: 10,
           marginLeft: 20,
         }}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -72,7 +115,17 @@ const FeedScreen: React.FC<SignUpProps> = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       {Header({ navigation })}
       {SearchBar()}
-      {List()}
+      <View
+        style={{
+          height: 356,
+          marginBottom: 20,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {List()}
+      </View>
+
       <ScrollView>{square()}</ScrollView>
     </SafeAreaView>
   );
