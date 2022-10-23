@@ -79,19 +79,45 @@ const Profile = () => {
           flexDirection: "row",
           position: "relative",
           top: 125,
+          width: 366,
+          height: 50,
+          borderWidth: 1,
+          borderColor: "#E5E5E5",
+          borderRadius: 100,
+          backgroundColor: "#F6F6F6",
         }}
       >
         <TouchableOpacity
-          style={styles.PostsContainer}
+          style={[
+            styles.PostsContainer,
+            { backgroundColor: Whichbutton == "Posts" ? "white" : "#F6F6F6" },
+          ]}
           onPress={() => setButton("Posts")}
         >
-          <Text style={styles.Posts}>Posts</Text>
+          <Text
+            style={[
+              styles.Posts,
+              { color: Whichbutton == "Posts" ? "#5DB075" : "#BDBDBD" },
+            ]}
+          >
+            Posts
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.PhotosContainer}
+          style={[
+            styles.PhotosContainer,
+            { backgroundColor: Whichbutton == "Photos" ? "white" : "#F6F6F6" },
+          ]}
           onPress={() => setButton("Photos")}
         >
-          <Text style={styles.Photos}>Photos</Text>
+          <Text
+            style={[
+              styles.Photos,
+              { color: Whichbutton == "Photos" ? "#5DB075" : "#BDBDBD" },
+            ]}
+          >
+            Photos
+          </Text>
         </TouchableOpacity>
       </View>
       <View
@@ -161,32 +187,24 @@ const styles = StyleSheet.create({
   },
   PostsContainer: {
     marginRight: 20,
-    backgroundColor: "white",
     width: 171.5,
     height: 46,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
   },
   PhotosContainer: {
-    backgroundColor: "white",
     width: 171.5,
     height: 46,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
   },
   Posts: {
-    color: "#5DB075",
     fontSize: 16,
     fontWeight: "600",
   },
   Photos: {
-    color: "#5DB075",
     fontSize: 16,
     fontWeight: "600",
   },

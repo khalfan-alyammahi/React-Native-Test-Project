@@ -27,7 +27,7 @@ export type RootStackParams = {
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Profile"
       screenOptions={{
         headerShown: false,
       }}
