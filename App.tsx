@@ -11,6 +11,7 @@ import Content from "./screens/Content";
 import Market from "./screens/Market";
 import Congratulations from "./screens/Congratulations";
 import Profile from "./screens/Profile";
+import Messages from "./screens/Messages";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -22,12 +23,13 @@ export type RootStackParams = {
   Market: undefined;
   Congratulations: undefined;
   Profile: undefined;
+  Messages: undefined;
 };
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Profile"
+      initialRouteName="Messages"
       screenOptions={{
         headerShown: false,
       }}
@@ -39,6 +41,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Content" component={Content} />
       <Stack.Screen name="Market" component={Market} />
       <Stack.Screen name="Congratulations" component={Congratulations} />
+      <Stack.Screen name="Messages" component={Messages} />
     </Stack.Navigator>
   );
 };
