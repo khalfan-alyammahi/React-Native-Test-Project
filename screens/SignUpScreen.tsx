@@ -121,7 +121,9 @@ const Body: React.FC<Props> = ({
           }}
         />
         {EmailValidated == true ? null : (
-          <Text style={styles.errorMessage}>Email Must include @gmail.com</Text>
+          <Text style={styles.errorMessage}>
+            Email Must include @gmail.com or @hotmail.com or @yahoo.com
+          </Text>
         )}
       </View>
       <View>

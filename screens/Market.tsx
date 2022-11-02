@@ -30,7 +30,6 @@ const Header: React.FC<SignUpProps> = ({ navigation }) => {
 
 const SearchBar = () => {
   const [text, setText] = useState("");
-  const [Found, setFound] = useState(false);
   return (
     <View style={styles.SearchBarConatiner}>
       <TextInput
@@ -39,7 +38,7 @@ const SearchBar = () => {
         placeholderTextColor={"#BDBDBD"}
         onChangeText={(text) => setText(text)}
       />
-      <ScrollView style={{ height: Found != false ? 300 : 0 }}>
+      <ScrollView style={{ height: text != "" ? 300 : 0 }}>
         <View style={{ marginTop: 20 }}>
           {DummyListTwo.filter((val) => {
             if (text == "") {
@@ -47,7 +46,6 @@ const SearchBar = () => {
             } else if (
               val.details.toLowerCase().includes(text.toLocaleLowerCase())
             ) {
-              setFound(true);
               return val.details;
             }
           }).map((val) => {
