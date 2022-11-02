@@ -76,7 +76,6 @@ const RateScreen = () => {
           <TouchableWithoutFeedback
             onPress={() => {
               setClicked(true);
-
               setId([0, 1, 2, 3, 4]);
             }}
           >

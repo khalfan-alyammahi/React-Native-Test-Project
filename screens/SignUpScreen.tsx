@@ -10,10 +10,8 @@ import {
 
 import { Entypo } from "@expo/vector-icons";
 import CheckBox from "../components/CheckBox";
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from "@react-navigation/native-stack";
+import * as yup from "yup";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParams } from "../App";
 
 export interface SignUpProps {
@@ -44,6 +42,13 @@ const Body: React.FC<Props> = ({
   setPasswordVisibilty,
   navigation,
 }) => {
+  // trying to know how to use yup ( have been using it in the last project which was a tutorial project and i forgot :) ).
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string().min(8).max(20).required(),
+  });
+
   const [text, setText] = useState("Show");
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
