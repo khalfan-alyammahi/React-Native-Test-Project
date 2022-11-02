@@ -68,7 +68,11 @@ const Body: React.FC<Props> = ({
   };
 
   const checkEmailValidation = (text: string) => {
-    if (text.includes("@gmail.com")) {
+    if (
+      text.includes("@gmail.com") ||
+      text.includes("@hotmail.com") ||
+      text.includes("@yahoo.com")
+    ) {
       setEmailValidated(true);
     } else {
       setEmailValidated(false);
