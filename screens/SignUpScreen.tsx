@@ -23,6 +23,10 @@ export interface ScreenProps {
   PasswordVisibilty: boolean;
 }
 
+export interface emailValidation {
+  text: string;
+}
+
 export type Props = SignUpProps & ScreenProps;
 
 const Header: React.FC<SignUpProps> = ({ navigation }) => {
@@ -42,69 +46,121 @@ const Body: React.FC<Props> = ({
   setPasswordVisibilty,
   navigation,
 }) => {
-  // trying to know how to use yup ( have been using it in the last project which was a tutorial project and i forgot :) ).
-  const schema = yup.object().shape({
-    name: yup.string().required(),
-    email: yup.string().email().required(),
-    password: yup.string().min(8).max(20).required(),
-  });
-
   const [text, setText] = useState("Show");
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [Namevalidated, setNameValidated] = useState(true);
+  const [EmailValidated, setEmailValidated] = useState(true);
+  const [PasswordValidated, setPasswordValidated] = useState(true);
 
   const details = {
     name: Name,
     email: Email,
     password: Password,
   };
+  const checkNameValidation = (text: string) => {
+    if (text.trim().length >= 4) {
+      setNameValidated(true);
+    } else {
+      setNameValidated(false);
+    }
+  };
 
+  const checkEmailValidation = (text: string) => {
+    if (text.includes("@gmail.com")) {
+      setEmailValidated(true);
+    } else {
+      setEmailValidated(false);
+    }
+  };
+  const checkPasswordValidation = (text: string) => {
+    if (text.trim().length >= 8) {
+      setPasswordValidated(true);
+    } else {
+      setPasswordValidated(false);
+    }
+  };
   return (
     <View style={styles.BodyContainer}>
-      <TextInput
-        placeholder="Name"
-        style={styles.textInput}
-        placeholderTextColor={"#BDBDBD"}
-        onChangeText={(text) => setName(text)}
-      />
-      <TextInput
-        placeholder="Email"
-        style={styles.textInput}
-        keyboardType={"email-address"}
-        placeholderTextColor={"#BDBDBD"}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: "#F6F6F6",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: 370,
-          height: 50,
-          padding: 10,
-          borderRadius: 5,
-          marginBottom: 20,
-        }}
-      >
+      <View>
         <TextInput
-          placeholder="Password"
+          placeholder="Name"
+          style={[
+            styles.textInput,
+            { marginBottom: Namevalidated == true ? 20 : 10 },
+          ]}
           placeholderTextColor={"#BDBDBD"}
-          secureTextEntry={PasswordVisibilty}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => {
+            setName(text);
+            checkNameValidation(text);
+          }}
         />
-
-        <Text
-          style={{ color: "#5DB075", fontSize: 16 }}
-          onPress={() => {
-            setPasswordVisibilty(!PasswordVisibilty);
-            text == "Show" ? setText("UnShow") : setText("Show");
+        {Namevalidated == true ? null : (
+          <Text style={styles.errorMessage}>
+            UserName Must be more than 4 characters
+          </Text>
+        )}
+      </View>
+      <View>
+        <TextInput
+          placeholder="Email"
+          style={[
+            styles.textInput,
+            { marginBottom: EmailValidated == true ? 20 : 10 },
+          ]}
+          keyboardType={"email-address"}
+          placeholderTextColor={"#BDBDBD"}
+          onChangeText={(text) => {
+            setEmail(text);
+            checkEmailValidation(text);
+          }}
+        />
+        {EmailValidated == true ? null : (
+          <Text style={styles.errorMessage}>Email Must include @gmail.com</Text>
+        )}
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#F6F6F6",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: 370,
+            height: 50,
+            padding: 10,
+            borderRadius: 5,
+            marginBottom: 20,
           }}
         >
-          {text}
-        </Text>
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor={"#BDBDBD"}
+            secureTextEntry={PasswordVisibilty}
+            onChangeText={(text) => {
+              setPassword(text);
+              checkPasswordValidation(text);
+            }}
+          />
+
+          <Text
+            style={{ color: "#5DB075", fontSize: 16 }}
+            onPress={() => {
+              setPasswordVisibilty(!PasswordVisibilty);
+              text == "Show" ? setText("UnShow") : setText("Show");
+            }}
+          >
+            {text}
+          </Text>
+        </View>
+        {PasswordValidated == true ? null : (
+          <Text style={styles.errorMessage}>
+            Passwrod must be more than 8 character
+          </Text>
+        )}
       </View>
+
       <CheckBox
         CheckText={
           "I would like to receive your newsletter and other promotional information."
@@ -185,6 +241,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     padding: 10,
     borderRadius: 5,
-    marginBottom: 20,
+  },
+  errorMessage: {
+    fontWeight: "bold",
+    color: "red",
+    marginBottom: 10,
   },
 });
