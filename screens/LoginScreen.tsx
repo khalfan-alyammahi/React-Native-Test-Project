@@ -135,9 +135,21 @@ const Body: React.FC<Props> = ({
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => {
-          if (checkAccount(details) == false) {
+          if (EmailValidated == false) {
+            alert(
+              "you must enter a valid email hint: ( must contain @gmail.com or @hotmail.com or @yahoo.com) "
+            );
+          } else if (PasswordValidated == false) {
+            alert(
+              "you must enter a valid password hint: ( container more than 8 characters) "
+            );
+          } else if (checkAccount(details) == false) {
             alert("Account does not exsist");
-          } else {
+          } else if (
+            checkAccount(details) == true &&
+            EmailValidated == true &&
+            PasswordValidated == true
+          ) {
             navigation.navigate("Feed");
             console.log(details);
           }
