@@ -6,12 +6,8 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
-  Button,
-  TouchableWithoutFeedback,
 } from "react-native";
 
-import { Entypo } from "@expo/vector-icons";
-import CheckBox from "../components/CheckBox";
 import { SignUpProps, Props } from "./SignUpScreen";
 
 function Header() {
@@ -31,6 +27,26 @@ const Body: React.FC<Props> = ({
   const [text, setText] = useState("Show");
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [EmailValidated, setEmailValidated] = useState(true);
+  const [PasswordValidated, setPasswordValidated] = useState(true);
+  const checkEmailValidation = (text: string) => {
+    if (
+      text.includes("@gmail.com") ||
+      text.includes("@hotmail.com") ||
+      text.includes("@yahoo.com")
+    ) {
+      setEmailValidated(true);
+    } else {
+      setEmailValidated(false);
+    }
+  };
+  const checkPasswordValidation = (text: string) => {
+    if (text.trim().length >= 8) {
+      setPasswordValidated(true);
+    } else {
+      setPasswordValidated(false);
+    }
+  };
 
   const details = {
     email: Email,
@@ -38,42 +54,65 @@ const Body: React.FC<Props> = ({
   };
   return (
     <View style={styles.BodyContainer}>
-      <TextInput
-        placeholder="Email"
-        style={styles.textInput}
-        placeholderTextColor={"#BDBDBD"}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: "#F6F6F6",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: 370,
-          height: 50,
-          padding: 10,
-          borderRadius: 5,
-          marginBottom: 20,
-        }}
-      >
+      <View>
         <TextInput
-          placeholder="Password"
+          placeholder="Email"
+          style={[
+            styles.textInput,
+            { marginBottom: EmailValidated == true ? 20 : 10 },
+          ]}
           placeholderTextColor={"#BDBDBD"}
-          secureTextEntry={PasswordVisibilty}
-          textAlign={"left"}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => {
+            setEmail(text);
+            checkEmailValidation(text);
+          }}
         />
-
-        <Text
-          style={{ color: "#5DB075", fontSize: 16 }}
-          onPress={() => {
-            setPasswordVisibilty(!PasswordVisibilty);
-            text == "Show" ? setText("UnShow") : setText("Show");
+        {EmailValidated ? null : (
+          <Text style={styles.errorMessage}>
+            Email Must include @gmail.com or @hotmail.com or @yahoo.com
+          </Text>
+        )}
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#F6F6F6",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: 370,
+            height: 50,
+            padding: 10,
+            borderRadius: 5,
+            marginBottom: PasswordValidated == true ? 20 : 10,
           }}
         >
-          {text}
-        </Text>
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor={"#BDBDBD"}
+            secureTextEntry={PasswordVisibilty}
+            textAlign={"left"}
+            onChangeText={(text) => {
+              setPassword(text);
+              checkPasswordValidation(text);
+            }}
+          />
+
+          <Text
+            style={{ color: "#5DB075", fontSize: 16 }}
+            onPress={() => {
+              setPasswordVisibilty(!PasswordVisibilty);
+              text == "Show" ? setText("UnShow") : setText("Show");
+            }}
+          >
+            {text}
+          </Text>
+        </View>
+        {PasswordValidated ? null : (
+          <Text style={styles.errorMessage}>
+            Password must be more than 8 character
+          </Text>
+        )}
       </View>
 
       <TouchableOpacity
@@ -150,6 +189,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     padding: 10,
     borderRadius: 5,
-    marginBottom: 20,
+  },
+  errorMessage: {
+    fontWeight: "bold",
+    color: "red",
+    marginBottom: 10,
   },
 });

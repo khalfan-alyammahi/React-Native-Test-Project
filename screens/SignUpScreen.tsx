@@ -10,7 +10,6 @@ import {
 
 import { Entypo } from "@expo/vector-icons";
 import CheckBox from "../components/CheckBox";
-import * as yup from "yup";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParams } from "../App";
 
@@ -102,7 +101,7 @@ const Body: React.FC<Props> = ({
         />
         {Namevalidated == true ? null : (
           <Text style={styles.errorMessage}>
-            UserName Must be more than 4 characters
+            User Name Must be more than 4 characters
           </Text>
         )}
       </View>
