@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import { SignUpProps, Props } from "./SignUpScreen";
+import DummyAccounts from "../AccountData";
 
 function Header() {
   return (
@@ -29,6 +30,22 @@ const Body: React.FC<Props> = ({
   const [Password, setPassword] = useState("");
   const [EmailValidated, setEmailValidated] = useState(true);
   const [PasswordValidated, setPasswordValidated] = useState(true);
+  type accountprop = {
+    email: string;
+    password: string;
+  };
+  const checkAccount = (account: { email: string; password: string }) => {
+    for (let i = 0; i < DummyAccounts.length; i++) {
+      if (
+        account.email == DummyAccounts[i].email &&
+        account.password == DummyAccounts[i].password
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const checkEmailValidation = (text: string) => {
     if (
       text.includes("@gmail.com") ||
@@ -118,8 +135,12 @@ const Body: React.FC<Props> = ({
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => {
-          navigation.navigate("Feed");
-          console.log(details);
+          if (checkAccount(details) == false) {
+            alert("Account does not exsist");
+          } else {
+            navigation.navigate("Feed");
+            console.log(details);
+          }
         }}
       >
         <Text style={styles.ButtonText}>Login</Text>
