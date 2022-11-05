@@ -8,10 +8,12 @@ import {
   FlatList,
   ScrollView,
   RefreshControl,
+  Platform,
 } from "react-native";
 import React, { useState, useCallback } from "react";
 import MessageBox from "../components/MessageBox";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { isSearchBarAvailableForCurrentPlatform } from "react-native-screens";
 
 const Header = () => {
   return (
@@ -85,6 +87,7 @@ const Messages = () => {
           alignItems: "center",
           padding: 10,
           alignSelf: "center",
+          marginBottom: Platform.OS == "android" ? 10 : 0,
         }}
       >
         <TextInput

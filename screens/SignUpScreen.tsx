@@ -6,12 +6,14 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 
 import { Entypo } from "@expo/vector-icons";
 import CheckBox from "../components/CheckBox";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParams } from "../App";
+import DummyAccounts from "../AccountData";
 
 export interface SignUpProps {
   navigation: NativeStackNavigationProp<RootStackParams, "SignUp", "Login">;
@@ -52,11 +54,24 @@ const Body: React.FC<Props> = ({
   const [Namevalidated, setNameValidated] = useState(true);
   const [EmailValidated, setEmailValidated] = useState(true);
   const [PasswordValidated, setPasswordValidated] = useState(true);
+  const [CheckBoxPressed, setCheckBoxPressed] = useState(false);
 
   const details = {
     name: Name,
     email: Email,
     password: Password,
+  };
+
+  const AddNewAccount = (account: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    if (DummyAccounts.find((acc) => acc.email == account.email)) {
+      return 0;
+    } else {
+      return;
+    }
   };
   const checkNameValidation = (text: string) => {
     if (text.trim().length >= 4) {
@@ -172,11 +187,17 @@ const Body: React.FC<Props> = ({
         }
         style={styles.checkBox}
       />
+      {/* {CheckBoxPressed == true ? null : <Text></Text>} */}
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => {
-          navigation.navigate("Feed");
-          console.log(details);
+          if (AddNewAccount(details) == 0) {
+            alert("Account exist");
+          } else {
+            AddNewAccount(details);
+            navigation.navigate("Feed");
+            console.log(details);
+          }
         }}
       >
         <Text style={styles.ButtonText}>Sign Up</Text>
@@ -230,6 +251,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: Platform.OS == "android" ? 20 : 0,
   },
   SignUp: {
     fontSize: 30,

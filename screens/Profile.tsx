@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Platform,
 } from "react-native";
 import Card from "../components/Card";
 import ListMessage from "../components/ListMessage";
@@ -55,7 +56,13 @@ const PostsList = () => {
 const Profile = () => {
   const [Whichbutton, setButton] = useState("Posts");
   return (
-    <View style={{ flex: 1, backgroundColor: "#F6F6F6", alignItems: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#F6F6F6",
+        alignItems: "center",
+      }}
+    >
       <View style={styles.greenBackground}>
         <SafeAreaView style={styles.profileContainer}>
           <Text style={styles.settings}>Settings</Text>
@@ -124,7 +131,7 @@ const Profile = () => {
         style={{
           top: 160,
           width: 400,
-          height: 400,
+          height: Platform.OS == "android" ? 270 : 400,
         }}
       >
         {Whichbutton == "Posts" ? PostsList() : PhotosList()}

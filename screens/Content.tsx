@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
   ScrollView,
+  Platform,
 } from "react-native";
 import Card from "../components/Card";
 import DummyListOne from "../DATA";
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 16,
     marginRight: 16,
+    marginTop: Platform.OS == "android" ? 20 : 0,
   },
   text: {
     fontSize: 16,

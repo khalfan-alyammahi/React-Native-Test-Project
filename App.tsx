@@ -31,7 +31,7 @@ export type RootStackParams = {
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="SignUp"
       screenOptions={{
         headerShown: false,
       }}

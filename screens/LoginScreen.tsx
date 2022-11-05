@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 
 import { SignUpProps, Props } from "./SignUpScreen";
@@ -30,10 +31,7 @@ const Body: React.FC<Props> = ({
   const [Password, setPassword] = useState("");
   const [EmailValidated, setEmailValidated] = useState(true);
   const [PasswordValidated, setPasswordValidated] = useState(true);
-  type accountprop = {
-    email: string;
-    password: string;
-  };
+
   const checkAccount = (account: { email: string; password: string }) => {
     for (let i = 0; i < DummyAccounts.length; i++) {
       if (
@@ -206,6 +204,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: Platform.OS == "android" ? 20 : 0,
   },
   Login: {
     fontSize: 30,

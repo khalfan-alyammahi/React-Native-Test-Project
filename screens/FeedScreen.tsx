@@ -8,7 +8,9 @@ import {
   TextInput,
   FlatList,
   ScrollView,
+  Platform,
 } from "react-native";
+import { loadAndroidRawResource } from "react-native-svg/lib/typescript/LocalSvg";
 import ListMessage from "../components/ListMessage";
 import DummyListOne from "../DATA";
 import { SignUpProps } from "./SignUpScreen";
@@ -143,6 +145,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 16,
     marginRight: 16,
+    marginTop: Platform.OS == "android" ? 20 : 0,
   },
   text: {
     fontSize: 16,

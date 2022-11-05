@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
   ScrollView,
+  Platform,
 } from "react-native";
 import MiniCard from "../components/MiniCard";
 import { SignUpProps } from "./SignUpScreen";
@@ -81,7 +82,7 @@ const SearchBar = () => {
 const Body = () => {
   return (
     <View style={styles.bodyContainer}>
-      <ScrollView>
+      <ScrollView style={{ height: "100%" }}>
         {/* Hot Deals */}
         <Text style={styles.bodyText}>Hot Deals</Text>
         <FlatList
@@ -149,13 +150,14 @@ const Market: React.FC<SignUpProps> = ({ navigation }) => {
 export default Market;
 
 const styles = StyleSheet.create({
-  bodyContainer: { marginLeft: 16 },
+  bodyContainer: { marginLeft: 16, flex: 1 },
   headerConatiner: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginLeft: 16,
     marginRight: 16,
+    marginTop: Platform.OS == "android" ? 20 : 0,
   },
   bodyText: {
     marginTop: 20,
